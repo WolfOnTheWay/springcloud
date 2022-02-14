@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: config-server
+server:
+  port: 6001
+
+cloud:
+  config:
+    server:
+      git:
+        uri: https://github.com/WolfOnTheWay/springcloud/tree/master/sp12-config
+        searchPaths: config
+        username: 1296783821@qq.com
+        password: lilang4444+..111
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:2001/eureka,http://127.0.0.1:2002/eureka
