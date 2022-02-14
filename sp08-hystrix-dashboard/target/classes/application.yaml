@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: hystrix-dashboard
+server:
+  port: 4001
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:2001/eureka,http://127.0.0.1:2002/eureka
+
+

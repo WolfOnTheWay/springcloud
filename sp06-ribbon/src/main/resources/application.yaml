@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: ribbon
+server:
+  port: 3001
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:2001/eureka,http://127.0.0.1:2002/eureka
+
+
+ribbon:
+  MaxAutoRetriesNextServer: 2
+  MaxAutoRetries: 1
+  OkToRetryOnAllOperations: true  #对所有的操作都进行重试（针对请求方式），默认不对post请求进行重试设置

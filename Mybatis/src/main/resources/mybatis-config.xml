@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!-- 1.配置开发环境，可以配置多个environment,每一个 environment是一个独立的开发环境  -->
+    <!--default指向哪个id就表明用哪个    -->
+    <environments default="develop">
+        <environment id="develop">
+            <!--配置事物管理方式
+                        JDBC：将事物交给JDBC管理（推荐）
+                        MANAGED:自己管理事物-->
+            <transactionManager type="JDBC"></transactionManager>
+            <!--配置数据源（连接池）
+                       POOLED：使用连接池
+                       UNPOOLED:不使用连接池
+                       JNDI：已过时-->
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.jdbc.Driver"/>
+                <property name="url" value="jdbc:mysql:///yonghedb?characterEncoding=utf-8&amp;serverTimezone=GMT%2B8"/>
+                <property name="username" value="root"/>
+                <property name="password" value="duang521"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <!--2.导入mapper.xml文件的（其中包含了要执行的sql语句）    -->
+    <mappers>
+        <mapper resource="EmpMapper.xml"/>
+    </mappers>
+
+</configuration>

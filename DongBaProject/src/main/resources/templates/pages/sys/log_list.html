@@ -1,0 +1,192 @@
+<div class="row">
+	<div class="col-xs-12">
+		<div class="box">
+			<div class="box-header">
+				<h3 class="box-title">日志管理</h3>
+
+				<div class="box-tools">
+					<div class="input-group input-group-sm" style="width: 350px;">
+						<input type="text" name="table_search" id="searchNameId"
+							class="form-control pull-right" placeholder="用户名">
+
+						<div class="input-group-btn">
+							<button type="button" class="btn btn-default btn-search">
+                                <i class="fa fa-search"></i>
+							</button>
+							<button type="button" class="btn btn-default btn-delete">删除</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- /.box-header -->
+			<div class="box-body table-responsive no-padding">
+				<table class="table table-hover">
+					<thead>
+						<tr>
+						    <th><input type="checkbox" id="checkAll">全选</th>
+							<th>用户名</th>
+							<th>操作</th>
+							<th>请求方法</th>
+							<th>请求参数</th>
+							<th>IP地址</th>
+							<th>执行时间</th>
+						</tr>
+					</thead>
+					<tbody id="tbodyId">
+					    <tr>
+					       <td colspan="7">数据加载中...</td>
+					    </tr>
+					</tbody>
+				</table>
+			</div>
+			<div id="pageId" class="box-footer clearfix">
+			      
+			</div>
+			<!-- /.box-body -->
+		</div>
+		<!-- /.box -->
+	</div>
+</div>
+<script type="text/javascript">
+$(function (){
+	//页面加载完成异步加载doPageUI对应的资源
+	//并将资源加载在pageId的位置
+	$("#pageId").load("doPageUI",function (){
+		//此函数在资源添加到pageId处时会执行（异步加载结束回调）
+		doGetObjects();
+	});
+	//查询按钮事件注册
+	$(".input-group-btn").on("click",".btn-search",doQueryObjects).on("click",".btn-delete",doDeleteObject);
+	//全选按钮事件注册
+	$("#checkAll").click(doChangeCheckAllState);
+	$("#tbodyId").on("change",".cBox",doChangeTHeadCheckBoxState);
+});
+function doChangeTHeadCheckBoxState(){
+	var flag = true;
+	$("#tbodyId input[type='checkbox']").each(function (){
+		flag = flag && $(this).prop("checked");
+	});
+	$("#checkAll").prop("checked",flag);
+}
+function doChangeCheckAllState(){
+	var flag = $(this).prop("checked");
+	$("#tbodyId input[type='checkbox']").each(function (){
+			$(this).prop("checked",flag);});
+}
+//执行删除操作
+function doDeleteObject(){
+	$("#checkAll").prop("checked",false);
+	var idArrary = doGetCheckedIds();
+	if(idArrary.length==0){
+		alert("请先选中记录");
+		return;
+	}
+	if(!confirm("确认删除吗？")){return;}
+	// console.log(idArrary.toString());
+	var params = {"ids":idArrary.toString()}
+	var url = "/log/doDeleteObjects"
+	$.post(url,params,function (result){
+		if(result.state==1){
+			alert(result.message);
+			doGetObjects();
+		}else{
+			alert(result.message)
+		}
+	});
+}
+function doGetCheckedIds()
+{
+	var idArray = [];
+	$("#tbodyId input[type='checkbox']").each(
+			function (){
+				if($(this).prop("checked")){
+					idArray.push($(this).val());
+				}
+			}
+	)
+	return idArray;
+}
+
+//基于username进行日志查询
+function doQueryObjects(){
+	console.log("line 63")
+	//初始化页码
+	$("#pageId").data("pageCurrent",1);
+	//基于条件进行查询
+	doGetObjects();
+
+}
+//异步加载（启动工作线程）服务端数据
+function doGetObjects(){
+	//1.定义请求参数
+	//data方法一个参数为取值，两个参数为绑定
+	var pageCurrent=$("#pageId").data("pageCurrent")
+	if(!pageCurrent){
+		pageCurrent = 1;
+	}
+	var params = {"pageCurrent":pageCurrent};
+	var username = $("#searchNameId").val();
+	if(username){
+		params.username = username;
+	}
+	//2.定义请求url
+	var url="log/doFindPageObjects";
+	//3.发送异步请求加载数据
+	//function(）会在服务端的数据返回以后进行执行
+	$.getJSON(url,params,function (result){
+		//console.log(result);
+		doHandleResponseResult(result);
+	})
+
+}
+//处理返回结果
+function doHandleResponseResult(result){
+	if(result.state ==1){
+		//呈现日志记录
+		doSetTableBodyRows(result.data.records);
+		//呈现分页信息
+		doSetPagination(result.data);
+	}else{
+		alert(result.message);
+	}
+}
+//呈现记录
+function doSetTableBodyRows(records){
+	//获取tbody对象
+	var tBody=$("#tbodyId");
+	tBody.empty();
+	for(var i = 0;i<records.length;i++){
+		//创建tr
+		var tr=$("<tr></tr>");
+		//创建td
+		var tds = doCreateTds(records[i]);
+		//td加到tr
+		tr.append(tds);
+		//tr加到tbody
+		tBody.append(tr);
+	}
+}
+function doCreateTds(data){
+	var tds="<td><input type='checkbox' class='cBox' name='cItem' value='"+data.id+"'></td>"+
+			"<td>"+data.username+"</td>"+
+			"<td>"+data.operation+"</td>"+
+			"<td>"+data.method+"</td>"+
+			"<td>"+data.params+"</td>"+
+			"<td>"+data.ip+"</td>"+
+			"<td>"+data.time+"</td>";
+	return tds;
+}
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+

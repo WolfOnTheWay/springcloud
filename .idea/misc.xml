@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="web" url="file://$PROJECT_DIR$/sp05-eureka" />
+  </component>
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/../java_code/sp01-commons/pom.xml" />
+        <option value="$PROJECT_DIR$/../java_code/sp02-itemservice/pom.xml" />
+        <option value="$PROJECT_DIR$/../java_code/sp03-userservice/pom.xml" />
+        <option value="$PROJECT_DIR$/../java_code/sp04-orderservice/pom.xml" />
+        <option value="$PROJECT_DIR$/sp05-eureka/pom.xml" />
+        <option value="$PROJECT_DIR$/sp06-ribbon/pom.xml" />
+        <option value="$PROJECT_DIR$/sp07-hystrix/pom.xml" />
+        <option value="$PROJECT_DIR$/sp08-hystrix-dashboard/pom.xml" />
+        <option value="$PROJECT_DIR$/sp09‐feign/pom.xml" />
+        <option value="$PROJECT_DIR$/sp10-turbine/pom.xml" />
+        <option value="$PROJECT_DIR$/sp11-zuul/pom.xml" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/out" />
+  </component>
+</project>

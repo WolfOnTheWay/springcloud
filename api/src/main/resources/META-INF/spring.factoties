@@ -1,0 +1,1 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.sdt.fsc.config.OrcDataSourceAutoConfiguration

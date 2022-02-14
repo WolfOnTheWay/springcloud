@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="servlet-api">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../tomcat/apache-tomcat-9.0.52/lib/servlet-api.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../tomcat/apache-tomcat-9.0.52/lib" />
+      <root url="jar://E:/a_工具/jar包/jakarta-taglibs-standard-1.0.1/jakarta-taglibs/standard-1.0.1/lib/jstl.jar!/" />
+      <root url="jar://E:/a_工具/jar包/jakarta-taglibs-standard-1.0.1/jakarta-taglibs/standard-1.0.1/lib/standard.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+    <jarDirectory url="file://$PROJECT_DIR$/../../tomcat/apache-tomcat-9.0.52/lib" recursive="false" />
+  </library>
+</component>

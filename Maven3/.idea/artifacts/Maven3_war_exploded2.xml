@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="Maven3:war exploded2">
+    <output-path>$PROJECT_DIR$/out/artifacts/Maven3_war_exploded2</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="Maven3/web/Web" />
+    </root>
+  </artifact>
+</component>

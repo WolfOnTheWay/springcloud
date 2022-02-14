@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sdt.fsc.mapper.mysqlmapper.WeatherMapper">
+
+    <resultMap id="BaseResultMap" type="com.sdt.fsc.entity.weather.WeatherEntity">
+        <id column="id" property="id"/>
+        <result column="code" property="code"/>
+        <result column="fullName" property="fullName"/>
+        <result column="displayName" property="displayName"/>
+    </resultMap>
+
+    <resultMap id="BaseResultMap1" type="com.sdt.fsc.entity.weather.WeatherInfo">
+        <id column="stationNo" property="stationNo"/>
+        <result column="observeTime" property="observeTime"/>
+        <result column="phenomenon" property="phenomenon"/>
+        <result column="windSpeed" property="windSpeed"/>
+        <result column="temperature" property="temperature"/>
+        <result column="pressure" property="pressure"/>
+        <result column="relativeHumidity" property="relativeHumidity"/>
+        <result column="absoluteHumidity" property="absoluteHumidity"/>
+        <result column="allCloudAmount" property="allCloudAmount"/>
+    </resultMap>
+
+    <resultMap id="BaseResultMapDrop" type="com.sdt.fsc.entity.weather.WeatherDrop">
+        <id column="id" property="id"/>
+        <result column="createTime" property="createTime"/>
+        <result column="sitesID" property="sitesID"/>
+        <result column="humidity" property="humidity"/>
+        <result column="temperature" property="temperature"/>
+        <result column="pressure" property="pressure"/>
+        <result column="allCloudAmount" property="allCloudAmount"/>
+        <result column="visibility" property="visibility"/>
+        <result column="windSpeed" property="windSpeed"/>
+        <result column="windDirect" property="windDirect"/>
+        <result column="phenomenon" property="phenomenon"/>
+        <result column="cloudForms" property="cloudForms"/>
+        <result column="observeMan" property="observeMan"/>
+        <result column="dewPointTemperature" property="dewPointTemperature"/>
+    </resultMap>
+
+    <resultMap id="BaseResultMapObsrv" type="com.sdt.fsc.entity.weather.WeatherPositionObsrv">
+        <id column="id" property="id"/>
+        <result column="createTime" property="createTime"/>
+        <result column="sitesID" property="sitesID"/>
+        <result column="observeMan" property="observeMan"/>
+        <result column="phenomenon" property="phenomenon"/>
+        <result column="temperature" property="temperature"/>
+        <result column="relativeHumidity" property="relativeHumidity"/>
+        <result column="allCloudAmount" property="allCloudAmount"/>
+        <result column="visibility" property="visibility"/>
+        <result column="windDirect" property="windDirect"/>
+        <result column="windSpeed" property="windSpeed"/>
+        <result column="mediumLowAmount" property="mediumLowAmount"/>
+        <result column="cloudForms" property="cloudForms"/>
+        <result column="dewPointTemperature" property="dewPointTemperature"/>
+        <result column="absoluteHumidity" property="absoluteHumidity"/>
+        <result column="pressure" property="pressure"/>
+        <result column="significantWaveHeight" property="significantWaveHeight"/>
+    </resultMap>
+    <resultMap id="BaseResultUpper" type="com.sdt.fsc.entity.weather.WeatherUpper">
+        <id column="id" property="id"/>
+        <result column="stationno" property="stationno"/>
+        <result column="soundtime" property="soundtime"/>
+        <result column="height" property="height"/>
+        <result column="winddirect" property="winddirect"/>
+        <result column="windspeed" property="windspeed"/>
+        <result column="pressure" property="pressure"/>
+        <result column="temperature" property="temperature"/>
+        <result column="humidity" property="humidity"/>
+    </resultMap>
+
+    <resultMap id="BaseResultHx" type="com.sdt.fsc.entity.weather.WeatherHx">
+        <id column="data_id" property="data_id"/>
+        <result column="data_station" property="data_station"/>
+        <result column="data_time" property="data_time"/>
+        <result column="data_layer" property="data_layer"/>
+        <result column="data_height" property="data_height"/>
+        <result column="data_wind_direction" property="data_wind_direction"/>
+        <result column="data_wind_speed" property="data_wind_speed"/>
+        <result column="data_wind_2av_direction" property="data_wind_2av_direction"/>
+        <result column="data_wind_2av_speed" property="data_wind_2av_speed"/>
+        <result column="data_wind_10av_direction" property="data_wind_10av_direction"/>
+        <result column="data_temperature" property="data_temperature"/>
+        <result column="data_humidity" property="data_humidity"/>
+        <result column="data_visibility" property="data_visibility"/>
+        <result column="data_pressure" property="data_pressure"/>
+    </resultMap>
+    <resultMap id="BaseResultHxRew" type="com.sdt.fsc.entity.weather.WeatherHx">
+        <result column="data_time" property="data_time"/>
+        <result column="data_wind_direction" property="data_wind_direction"/>
+        <result column="data_wind_speed" property="data_wind_speed"/>
+        <result column="data_temperature" property="data_temperature"/>
+        <result column="data_humidity" property="data_humidity"/>
+        <result column="data_visibility" property="data_visibility"/>
+        <result column="data_pressure" property="data_pressure"/>
+    </resultMap>
+    <resultMap id="BaseResultObserRew" type="com.sdt.fsc.entity.weather.WeatherJoinData">
+        <result column="displayName" property="displayName"/>
+        <result column="phenomenon" property="phenomenon"/>
+        <result column="allCloudAmount" property="allCloudAmount"/>
+    </resultMap>
+   <select id="queryWeatherCodeName" resultMap="BaseResultMap" parameterType="com.sdt.fsc.entity.weather.WeatherEntity">
+       select * from phenomenoncode where code in
+        <foreach collection="codeList" index="index" item="tag" open="(" separator="," close=" )">
+              #{tag}
+        </foreach>
+   </select>
+    <select id="queryWeatherAll" resultMap="BaseResultMap1" parameterType="com.sdt.fsc.entity.weather.WeatherInfo">
+        select  observeTime,stationNo,phenomenon,windSpeed,temperature,pressure,relativeHumidity,
+        absoluteHumidity,allCloudAmount from surfacehourobservation where observeTime &gt;= #{startTime} and observeTime &lt;= #{endTime} ORDER BY observeTime desc limit 1
+    </select>
+
+    <select id="queryWeatherDrop" resultMap="BaseResultMapDrop" parameterType="com.sdt.fsc.entity.weather.WeatherDrop">
+        select  * from navi_drop where createtime &gt;= #{startTime} and createtime &lt;= #{endTime} ORDER BY createtime desc limit 1
+    </select>
+
+    <select id="queryWeatherUpper" resultMap="BaseResultUpper" parameterType="com.sdt.fsc.entity.weather.WeatherUpper">
+        select  * from upperobservation where soundtime &gt;= #{startTime} and soundtime &lt;= #{endTime} ORDER BY soundtime desc limit 1
+    </select>
+    <select id="queryWeatherHx" resultMap="BaseResultHx" parameterType="com.sdt.fsc.entity.weather.WeatherHx">
+        select  * from hx_data where data_time &gt;= #{startTime} and data_time &lt;= #{endTime} ORDER BY data_time desc limit 1
+    </select>
+    <select id="queryWeatherObsrv" resultMap="BaseResultMapObsrv" parameterType="com.sdt.fsc.entity.weather.WeatherPositionObsrv">
+        select  * from positionobsrv where createtime &gt;= #{startTime} and createtime &lt;= #{endTime} ORDER BY createtime desc limit 1
+    </select>
+    <select id="queryWeatherHxRew" resultMap="BaseResultHxRew" parameterType="com.sdt.fsc.entity.weather.WeatherHx">
+        select data_time, data_temperature, data_humidity, data_wind_direction, data_wind_speed,
+        data_pressure, data_visibility
+        from
+        hx_data
+        where data_time &gt;= #{startTime} and data_time &lt;= #{endTime}
+        and data_station=10 order by data_time desc limit 1;
+    </select>
+    <select id="queryWeatherObsrvRew" resultMap="BaseResultObserRew" parameterType="com.sdt.fsc.entity.weather.WeatherHx">
+        select sur.phenomenon,phe.displayName,sur.allCloudAmount
+        from surfacehourobservation sur
+        left join phenomenoncode phe
+        on cast(sur.phenomenon as unsigned integer)=cast(phe.code as unsigned integer)
+        where observeTime &gt;= #{startTime}
+        and observeTime  &lt;= #{endTime}
+        order by observeTime desc
+        limit 1;
+    </select>
+</mapper>
