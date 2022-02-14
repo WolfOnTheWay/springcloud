@@ -13,6 +13,7 @@
       <module fileurl="file://$PROJECT_DIR$/sp09‐feign/sp09‐feign.iml" filepath="$PROJECT_DIR$/sp09‐feign/sp09‐feign.iml" />
       <module fileurl="file://$PROJECT_DIR$/sp10-turbine/sp10-turbine.iml" filepath="$PROJECT_DIR$/sp10-turbine/sp10-turbine.iml" />
       <module fileurl="file://$PROJECT_DIR$/sp11-zuul/sp11-zuul.iml" filepath="$PROJECT_DIR$/sp11-zuul/sp11-zuul.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sp12-config/sp12-config.iml" filepath="$PROJECT_DIR$/sp12-config/sp12-config.iml" />
     </modules>
   </component>
 </project>
